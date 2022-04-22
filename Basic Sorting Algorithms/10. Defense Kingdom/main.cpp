@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 /*
@@ -26,64 +27,26 @@ int defkin(int W, int H, vector<pair<int, int>> position)
 {
 	int n = position.size();
 
-    // construct x-coordinates array
-	vector<int> x(n + 2);
+    // construct coordinates arrays
+	vector<int> x(n + 2), y(n + 2);
 
-	//construct y-coordinates array
-	vector<int> y(n + 2);
-
-	x[0] = 0;
-	y[0] = 0;
+	x[0] = 0, y[0] = 0;
 	for (int i = 0; i < n; i++) {
-		x[i+1] = position[i].first;
-		y[i+1] = position[i].second;
+		x[i+1] = position[i].first, y[i+1] = position[i].second;
 	}
-	x[n+1] = W + 1;
-	y[n+1] = H + 1;
+	x[n+1] = W + 1, y[n+1] = H + 1;
 
-	// sort the coordinates arrays using counting sort
-	vector<int> x_freq(W + 2, 0);
-	vector<int> y_freq(H + 2, 0);
-
-	for (int i = 0; i < n + 2; i++) {
-		x_freq[x[i]] += 1;
-		y_freq[y[i]] += 1;
-	}
-
-	int j;
-
-	j = 0;
-	for (int i = 0; i < W + 2; i++) {
-		while (x_freq[i]) {
-			x[j++] = i;
-			x_freq[i]--;
-		}
-	}
-
-	j = 0;
-	for (int i = 0; i < H + 2; i++) {
-		while (y_freq[i]) {
-			y[j++] = i;
-			y_freq[i]--;
-		}
-	}
+	sort(x.begin(), x.end());
+	sort(y.begin(), y.end());
 
 	int max_x = INT_MIN;
-	int diff_x;
 	for (int i = 0; i < n + 1; i++) {
-		diff_x = x[i+1] - x[i] - 1;
-		if (diff_x > max_x) {
-			max_x = diff_x;
-		}
+		max_x = max(x[i+1] - x[i] - 1, max_x);
 	}
 
 	int max_y = INT_MIN;
-	int diff_y;
 	for (int i = 0; i < n + 1; i++) {
-		diff_y = y[i+1] - y[i] - 1;
-		if (diff_y > max_y) {
-			max_y = diff_y;
-		}
+		max_y = max(y[i+1] - y[i] - 1, max_y);
 	}
 
 	return max_x * max_y;

@@ -49,16 +49,9 @@ int pairSticks(vector<int> length, int D)
 
 	// check pairs in length with max difference D
 	int pairs = 0;
-	int i = 0;
-	while (i < n) {
-		int diff = abs(length[i] - length[i+1]);
-		if (diff <= D) {
-			pairs++;
-			i += 2;
-		} else {
-			i++;
-		}
-	}
+	for(int i = 0; i < n - 1; i++) {
+        if (length[i + 1] - length[i] <= D) { pairs++; i++;}
+    }
 
 	return pairs;
 }
