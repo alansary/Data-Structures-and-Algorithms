@@ -6,3 +6,4 @@
 04. 2D Arrays
 05. Pointers & Dynamic Memory
 06. Vector Data Structure
+07. Bitwise Manipulation
