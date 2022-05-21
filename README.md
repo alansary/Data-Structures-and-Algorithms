@@ -7,3 +7,6 @@
 05. Pointers & Dynamic Memory
 06. Vector Data Structure
 07. Bitwise Manipulation
+08. Recursion Basics
+09. Divide & Conquer
+10. Linked Lists
