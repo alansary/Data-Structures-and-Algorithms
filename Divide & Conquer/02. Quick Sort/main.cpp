@@ -1,26 +1,27 @@
 #include <iostream>
 using namespace std;
 
-/*
- * Quick Sort
- * Average Case Time Complexity: O(nlogn)
- * Worst Case Time Complexity: O(n^2)
- */
+// Quick Sort
+// Average case time complexity: O(nlogn)
+// Worst case time complexity: O(n^2)
+// Assuming no repetitions exist.
+void quickSort(int arr[], int start, int end) {
+	if (start >= end) return; // One element is already sorted
 
-void quick_sort(int * arr, int start, int end) {
-	if (start == end) return; // 1 element is sorted
-
-	int i = start;
-	for (int j = start; j < end; j++) {
-		if (arr[j] < arr[end]) {
-			swap(arr[i++], arr[j]);
+	// Choose pivot element - last element will be chosen in this implementation
+	int index = start;
+	for (int i = start; i < end; i++) {
+		// Partition - < pivot & > pivot
+		if (arr[i] < arr[end]) { // Pivot == end
+			swap(arr[index++], arr[i]);
 		}
 	}
-	swap(arr[i], arr[end]); // place the pivot in the correct location
+	// Place pivot in the write location
+	swap(arr[index], arr[end]);
 
-	int mid = (start + end) / 2;
-	quick_sort(arr, start, mid);
-	quick_sort(arr, mid+1, end);
+	// Recursively sort left and write arrays
+	quickSort(arr, start, index - 1);
+	quickSort(arr, index + 1, end);
 }
 
 int main() {
